@@ -9,6 +9,9 @@ class MainPage extends React.Component {
 
         return (<>
                 <div>MainPage</div>
+                <div>RUB-USD</div>
+                <div>RUB-EUR</div>
+                <div>+add</div>
             </>
         )
     }

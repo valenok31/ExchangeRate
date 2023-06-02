@@ -15,15 +15,9 @@ class App extends React.Component {
     return (<div className={s.app__header}>
           <nav>
             <ul>
-              <li>
-                <Link to="/">Главная</Link>
-              </li>
-              <li>
-                <Link to="/exchange">Курс валют</Link>
-              </li>
-              <li>
-                <Link to="/calculator">Калькулятор</Link>
-              </li>
+{/*              <li>
+                <Link to="/">Курс валют</Link>
+              </li>*/}
               <li>
                 <Link to="/setting">Настройки</Link>
               </li>
@@ -31,9 +25,7 @@ class App extends React.Component {
           </nav>
           <div>
             <Routes>
-              <Route path='/' element={<MainPage />}/>
-              <Route path='/exchange' element={<Exchange/>}/>
-              <Route path='/calculator' element={<Calculator/>}/>
+              <Route path='/' element={<Exchange/>}/>
               <Route path='/setting' element={<Setting/>}/>
             </Routes>
           </div>
