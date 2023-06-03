@@ -2,6 +2,8 @@ import {fetchExchangeRates} from "../api/api_currencyapi";
 
 const SET_EXCHANGE_RATES = 'SET_EXCHANGE_RATES';
 const SET_SELECTED_CURRENCY_PAIRS = 'SET_SELECTED_CURRENCY_PAIRS';
+const REMOVE_CURRENCY_PAIRS = 'REMOVE_CURRENCY_PAIRS';
+const UPDATE_CURRENCY_PAIRS = 'UPDATE_CURRENCY_PAIRS';
 
 const initialState = {
     settings: {
@@ -733,7 +735,18 @@ const initialState = {
             }
         }
     },
-    selectedCurrencyPairs: [],
+    selectedCurrencyPairs: [
+        {
+            firstcode: 'USD',
+            secondcode: 'RUB',
+            defaultValue:1,
+        },
+        {
+            firstcode: 'EUR',
+            secondcode: 'RUB',
+            defaultValue:1,
+        },
+    ],
 
 };
 
@@ -751,13 +764,29 @@ const exchange_reducer = (state = initialState, action) => {
                 selectedCurrencyPairs: [...state.selectedCurrencyPairs, action.selectedCurrencyPairs]
             }
 
+        case REMOVE_CURRENCY_PAIRS:
+            return {...state,
+                selectedCurrencyPairs: state.selectedCurrencyPairs.filter((item, index) => index !== action.keyNumber)}
+
+        case UPDATE_CURRENCY_PAIRS:
+            console.log(action.indexDefaultValue[1])
+            state.selectedCurrencyPairs[action.indexDefaultValue[0]].defaultValue = action.indexDefaultValue[1]
+            return {...state}
+
+
         default:
             return state;
     }
 };
 
 export const setExchangeRates = (exchangeRates) => ({type: SET_EXCHANGE_RATES, exchangeRates});
-export const setSelectedCurrencyPairs = (selectedCurrencyPairs) => ({type: SET_SELECTED_CURRENCY_PAIRS, selectedCurrencyPairs});
+export const setSelectedCurrencyPairs = (selectedCurrencyPairs) => ({
+    type: SET_SELECTED_CURRENCY_PAIRS,
+    selectedCurrencyPairs
+});
+export const removeCurrencyPairs = (keyNumber) => ({type: REMOVE_CURRENCY_PAIRS, keyNumber});
+export const updateCurrencyPairs = (indexDefaultValue) => ({type: UPDATE_CURRENCY_PAIRS, indexDefaultValue});
+
 
 export const handleExchangeRates = () => {
     return (dispatch) => {

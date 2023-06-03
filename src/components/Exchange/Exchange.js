@@ -1,7 +1,13 @@
 import React from "react";
 import {connect} from "react-redux";
-import {handleExchangeRates, setSelectedCurrencyPairs} from "../../redux/exchange_reducer";
+import {
+    handleExchangeRates,
+    removeCurrencyPairs,
+    setSelectedCurrencyPairs,
+    updateCurrencyPairs
+} from "../../redux/exchange_reducer";
 import {CurrencyPair} from "./CurrencyPair";
+import {AddCurrencyPair} from "./AddCurrencyPair";
 
 //import s from "./Exchange.module.css";
 
@@ -12,23 +18,24 @@ class Exchange extends React.Component {
     }
 
 
+
     render() {
         if (!!this.props.getExchangeRates.data) {
-            let base_usdrub = this.props.getExchangeRates.data.RUB;
-            let usdrub = this.props.getExchangeRates.data.USD;
-            let eurrub = this.props.getExchangeRates.data.EUR;
-            let kztrub = this.props.getExchangeRates.data.KZT;
-
-            console.log(this.props.getSelectedCurrencyPairs)
-
+            let base = this.props.getExchangeRates.data;
+            let arrCurrency = this.props.getSelectedCurrencyPairs;
+            console.log(arrCurrency)
+            let arrCurrencyPair = arrCurrency.map((currency,i) => {
+                return <CurrencyPair key={i} keyNumber={i}
+                                     currencyPair={currency}
+                                     base={base}
+                                     removeCurrencyPairs={this.props.removeCurrencyPairs}
+                                     updateCurrencyPairs={this.props.updateCurrencyPairs}/>
+            })
             return (<>
                     <div>Курс валют</div>
                     <div>на 02.06.2023</div>
-                    <CurrencyPair currencyPair={usdrub} base_usdrub={base_usdrub} setSelectedCurrencyPairs={this.props.setSelectedCurrencyPairs}/>
-                    <CurrencyPair currencyPair={eurrub} base_usdrub={base_usdrub} setSelectedCurrencyPairs={this.props.setSelectedCurrencyPairs}/>
-                    <CurrencyPair currencyPair={kztrub} base_usdrub={base_usdrub} setSelectedCurrencyPairs={this.props.setSelectedCurrencyPairs}/>
-                    <CurrencyPair currencyPair={base_usdrub} base_usdrub={kztrub} setSelectedCurrencyPairs={this.props.setSelectedCurrencyPairs}/>
-                    <div>+add</div>
+                    {arrCurrencyPair}
+                    <AddCurrencyPair setSelectedCurrencyPairs={this.props.setSelectedCurrencyPairs}/>
                 </>
             )
         }
@@ -42,6 +49,11 @@ let mapStateToProps = (state) => {
     })
 };
 
-let resultConnecting = connect(mapStateToProps, {handleExchangeRates, setSelectedCurrencyPairs})(Exchange);
+let resultConnecting = connect(mapStateToProps, {
+    handleExchangeRates,
+    setSelectedCurrencyPairs,
+    removeCurrencyPairs,
+    updateCurrencyPairs,
+})(Exchange);
 
 export default resultConnecting;
