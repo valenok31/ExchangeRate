@@ -1,4 +1,6 @@
 import React from 'react';
+import s from "./AddCurrencyPair.module.css";
+
 
 export function AddCurrencyPair(props) {
     function addCurrencyPair(e) {

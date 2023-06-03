@@ -1,9 +1,5 @@
-.App {
-  text-align: center;
-}
-
-.app__header {
-  /*  display: grid;
-    grid-template-columns: 200px auto;
-    height: 100vh;*/
+.app__container{
+  max-width: 1230px;
+  padding: 0 15px;
+  margin: 0 auto;
 }

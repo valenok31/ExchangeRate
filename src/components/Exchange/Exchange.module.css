@@ -1,0 +1,28 @@
+.box{
+    display: grid;
+    place-items: center;
+    gap: 15px;
+    grid-template-rows: auto;
+}
+
+h1{
+
+}
+
+.box__date{
+text-align: center;
+}
+
+.box__currency{
+    display: grid;
+    place-items: center;
+    gap: 15px;
+    grid-template-rows: auto;
+}
+.box__add_currency{
+
+}
+
+form{
+display: block;
+}
