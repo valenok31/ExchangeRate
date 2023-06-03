@@ -10,35 +10,29 @@ export function CurrencyPair(props) {
     let defaultValue = props.currencyPair.defaultValue;
     let baseFirst = props.base[firstCurrency]
     let baseSecond = props.base[secondCurrency]
-    let removeCurrencyPairs=props.removeCurrencyPairs;
 
 
     let firstCurrencyValue = 1
     let secondCurrencyValue = baseSecond.value / baseFirst.value
 
     function changeValueFirstCurrency(props) {
-        props.updateCurrencyPairs([props.keyNumber, +formik.values.firstCurrency]);
-        //formik.values.secondCurrency = Math.round(secondCurrencyValue * 100 * formik.values.firstCurrency) / 100;
-        formik.values.secondCurrency = Math.round(secondCurrencyValue * 10 * defaultValue) / 10;
+        formik.values.secondCurrency = Math.round(secondCurrencyValue * 100 * formik.values.firstCurrency) / 100;
 
 
     }
 
     function changeValueSecondCurrency(props) {
-        props.updateCurrencyPairs([props.keyNumber, formik.values.firstCurrency]);
-        formik.values.firstCurrency = Math.round(formik.values.secondCurrency * 10 / secondCurrencyValue) / 10;
+        formik.values.firstCurrency = Math.round(formik.values.secondCurrency * 100 / secondCurrencyValue) / 100;
 
     }
 
     const formik = useFormik({
         initialValues: {
             baseCurrency: 1,
-            firstCurrency: defaultValue,
-            secondCurrency: Math.round(secondCurrencyValue * 10) / 10,
+            firstCurrency: 1,
+            secondCurrency: Math.round(secondCurrencyValue * 100) / 100,
         },
         onSubmit: values => {
-            console.log(props.keyNumber)
-            removeCurrencyPairs(props.keyNumber);
         },
     });
 
@@ -70,7 +64,6 @@ export function CurrencyPair(props) {
                    value={formik.values.secondCurrency}
             />
             <label htmlFor="secondCurrency"> {secondCurrency}</label>
-            <button type='submit'>Delete</button>
         </form>
     </>
 

@@ -4,10 +4,10 @@ import {
     handleExchangeRates,
     removeCurrencyPairs,
     setSelectedCurrencyPairs,
-    updateCurrencyPairs
 } from "../../redux/exchange_reducer";
 import {CurrencyPair} from "./CurrencyPair";
 import {AddCurrencyPair} from "./AddCurrencyPair";
+import {dateConverter} from "../accessoryFunctions/dateСonverter";
 
 //import s from "./Exchange.module.css";
 
@@ -17,23 +17,35 @@ class Exchange extends React.Component {
         //this.props.handleExchangeRates();
     }
 
-
-
     render() {
         if (!!this.props.getExchangeRates.data) {
             let base = this.props.getExchangeRates.data;
             let arrCurrency = this.props.getSelectedCurrencyPairs;
+            let removeCurrencyPairs = this.props.removeCurrencyPairs;
+
+            function onRemoveCurrencyPairs(i, evt) {
+                evt.preventDefault();
+                removeCurrencyPairs(i);
+            }
+
             console.log(arrCurrency)
-            let arrCurrencyPair = arrCurrency.map((currency,i) => {
-                return <CurrencyPair key={i} keyNumber={i}
-                                     currencyPair={currency}
-                                     base={base}
-                                     removeCurrencyPairs={this.props.removeCurrencyPairs}
-                                     updateCurrencyPairs={this.props.updateCurrencyPairs}/>
+            let arrCurrencyPair = arrCurrency.map((currency, i) => {
+                return <form onSubmit={(evt) => {
+                    onRemoveCurrencyPairs(i, evt)
+                }}>
+                    <CurrencyPair key={i}
+                                  currencyPair={currency}
+                                  base={base}/>
+                    {arrCurrency.length-1==i ? <button type='submit'>Delete</button> : <div></div>}
+
+                </form>
             })
+
+            let date = new Date(Date.parse(this.props.getExchangeRates.meta.last_updated_at));
+
             return (<>
                     <div>Курс валют</div>
-                    <div>на 02.06.2023</div>
+                    <div>{dateConverter(date, true)}</div>
                     {arrCurrencyPair}
                     <AddCurrencyPair setSelectedCurrencyPairs={this.props.setSelectedCurrencyPairs}/>
                 </>
@@ -53,7 +65,6 @@ let resultConnecting = connect(mapStateToProps, {
     handleExchangeRates,
     setSelectedCurrencyPairs,
     removeCurrencyPairs,
-    updateCurrencyPairs,
 })(Exchange);
 
 export default resultConnecting;
