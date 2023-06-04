@@ -1,76 +1,65 @@
 import React, {useEffect} from 'react';
 import {useFormik} from "formik";
 import s from "./CurrencyPair.module.css";
-import {logDOM} from "@testing-library/react";
 
 export function CurrencyPair(props) {
-
-    let name_first = `firstCurrency_${props.keyNumber}`
-    let name_second = `secondCurrency_${props.keyNumber}`
-
+    //let name_first = `firstCurrency_${props.keyNumber}`
+    //let name_second = `secondCurrency_${props.keyNumber}`
+    let t = 0;
     let firstCurrency = props.currencyPair.firstcode;
     let secondCurrency = props.currencyPair.secondcode;
-    let defaultValue = props.currencyPair.defaultValue;
+    let defaultValue = props.currencyPair.defaultValueF;
     let baseFirst = props.base[firstCurrency]
     let baseSecond = props.base[secondCurrency]
 
 
     let firstCurrencyValue = 1
     let secondCurrencyValue = baseSecond.value / baseFirst.value
+    let v_s = Math.round(props.currencyPair.defaultValueS * 1000) / 1000
 
-    function changeValueFirstCurrency(props) {
-        formik.values.secondCurrency = Math.round(secondCurrencyValue * 100 * formik.values.firstCurrency) / 100;
+    function onChangeValueFirstCurrency(e) {
+        console.log(String(e.target.value))
+       // if (String(e.target.value).slice(-1) !== '.') {
+            let currency = {
+                firstcode: firstCurrency,
+                secondcode: secondCurrency,
+                defaultValueF: String(e.target.value),
+                defaultValueS: Math.round(e.target.value * secondCurrencyValue * 100) / 100,
+            }
+            props.updateCurrencyPairs([props.keyNumber, currency])
+            props.removeCurrencyPairs(-1);
+       // }
+
     }
 
-    function changeValueSecondCurrency(props) {
-        formik.values.firstCurrency = Math.round(formik.values.secondCurrency * 100 / secondCurrencyValue) / 100;
-
+    function onChangeValueSecondCurrency(e) {
+       // if (String(e.target.value).slice(-2,-1) !== '.') {
+            let currency = {
+                firstcode: firstCurrency,
+                secondcode: secondCurrency,
+                defaultValueF: Math.round(e.target.value * 100 / secondCurrencyValue) / 100,
+                defaultValueS: String(e.target.value),
+                //defaultValue: Math.round(e.target.value * 100000 / secondCurrencyValue) / 100000,
+            }
+            props.updateCurrencyPairs([props.keyNumber, currency])
+            props.removeCurrencyPairs(-1);
+            console.log(e.target.value)
+       // } else {
+            //console.log(e.target.value)
+            t = '.'
+            //v_s = String(e.target.value)
+            console.log(String(e.target.value).slice(-2,-1))
+       // }
     }
-
-    const formik = useFormik({
-
-        initialValues: {
-            baseCurrency: 1,
-            firstCurrency: 1,
-            secondCurrency: Math.round(secondCurrencyValue * 100) / 100,
-        },
-        validate: values => {
-            const errors = {};
-            if (!values.firstCurrency) {
-                errors.firstCurrency = 'Не должно быть пустым!';
-            } else if (!/^\d{1,}$/.test(values.firstCurrency)) {
-                errors.firstCurrency ="Мы работаем только с числами";
-            }
-
-            if (!values.secondCurrency) {
-                errors.secondCurrency = 'Не должно быть пустым!';
-            } else if (!/^\d{1,}$/.test(values.secondCurrency)) {
-                errors.secondCurrency ="Мы работаем только с числами";
-            }
-
-
-            console.log(errors)
-            return errors;
-        },
-        onSubmit: values => {
-        },
-    });
-
-    useEffect(() => {
-        changeValueFirstCurrency(props)
-    }, [formik.values.firstCurrency])
-    useEffect(() => {
-        changeValueSecondCurrency(props)
-    }, [formik.values.secondCurrency])
 
 
     return <>
-        <form onSubmit={formik.handleSubmit}>
+        <form>
             <input id="firstCurrency"
                    name="firstCurrency"
                    type="text"
-                   onChange={formik.handleChange}
-                   value={formik.values.firstCurrency}
+                   onChange={onChangeValueFirstCurrency}
+                   value={props.currencyPair.defaultValueF}
             />
             <label htmlFor="firstCurrency">
                 {firstCurrency}</label>
@@ -78,8 +67,8 @@ export function CurrencyPair(props) {
             <input id="secondCurrency"
                    name="secondCurrency"
                    type="text"
-                   onChange={formik.handleChange}
-                   value={formik.values.secondCurrency}
+                   onChange={onChangeValueSecondCurrency}
+                   value={props.currencyPair.defaultValueS}
             />
             <label htmlFor="secondCurrency"> {secondCurrency}</label>
         </form>

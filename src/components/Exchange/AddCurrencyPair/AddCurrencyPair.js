@@ -5,12 +5,22 @@ import s from "./AddCurrencyPair.module.css";
 export function AddCurrencyPair(props) {
     function addCurrencyPair(e) {
         e.preventDefault();
+
+
         const firstTarget = e.target.first.value;
         const secondTarget = e.target.second.value;
+
+        let baseFirst = props.base[firstTarget]
+        let baseSecond = props.base[secondTarget]
+        let firstCurrencyValue = 1
+        let secondCurrencyValue = Math.round(baseSecond.value / baseFirst.value * 1000) / 1000;
+
+
         props.setSelectedCurrencyPairs({
             firstcode: firstTarget,
             secondcode: secondTarget,
-            defaultValue: 1,
+            defaultValueF: firstCurrencyValue,
+            defaultValueS: secondCurrencyValue,
         });
     }
 

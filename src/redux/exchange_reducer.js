@@ -739,12 +739,14 @@ const initialState = {
         {
             firstcode: 'USD',
             secondcode: 'RUB',
-            defaultValue:1,
+            defaultValueF:1,
+            defaultValueS:81,
         },
         {
             firstcode: 'EUR',
             secondcode: 'RUB',
-            defaultValue:1,
+            defaultValueF:1,
+            defaultValueS:87,
         },
     ],
 
@@ -769,8 +771,9 @@ const exchange_reducer = (state = initialState, action) => {
                 selectedCurrencyPairs: state.selectedCurrencyPairs.filter((item, index) => index !== action.keyNumber)}
 
         case UPDATE_CURRENCY_PAIRS:
-            console.log(action.indexDefaultValue[1])
-            state.selectedCurrencyPairs[action.indexDefaultValue[0]].defaultValue = action.indexDefaultValue[1]
+            //console.log(action.indexDefaultValue[1])
+            state.selectedCurrencyPairs[action.indexDefaultValue[0]] = action.indexDefaultValue[1]
+            //debugger;
             return {...state}
 
 
