@@ -1,4 +1,5 @@
 import {fetchExchangeRates} from "../api/api_currencyapi";
+import {setLocalStorage} from "../components/accessoryFunctions/setLocalStorage";
 
 const SET_EXCHANGE_RATES = 'SET_EXCHANGE_RATES';
 const SET_SELECTED_CURRENCY_PAIRS = 'SET_SELECTED_CURRENCY_PAIRS';
@@ -739,17 +740,22 @@ const initialState = {
         {
             firstcode: 'USD',
             secondcode: 'RUB',
-            defaultValueF:1,
-            defaultValueS:81,
+            defaultValueF: 1,
+            defaultValueS: 81.00,
         },
         {
             firstcode: 'EUR',
             secondcode: 'RUB',
-            defaultValueF:1,
-            defaultValueS:87,
+            defaultValueF: 1,
+            defaultValueS: 87.16,
         },
     ],
-
+    currencySymbol:{
+        'USD':"$",
+        'EUR':"€",
+        'RUB':"руб.",
+        'BYR':"$",
+    }
 };
 
 const exchange_reducer = (state = initialState, action) => {
@@ -767,13 +773,13 @@ const exchange_reducer = (state = initialState, action) => {
             }
 
         case REMOVE_CURRENCY_PAIRS:
-            return {...state,
-                selectedCurrencyPairs: state.selectedCurrencyPairs.filter((item, index) => index !== action.keyNumber)}
+            return {
+                ...state,
+                selectedCurrencyPairs: state.selectedCurrencyPairs.filter((item, index) => index !== action.keyNumber)
+            }
 
         case UPDATE_CURRENCY_PAIRS:
-            //console.log(action.indexDefaultValue[1])
             state.selectedCurrencyPairs[action.indexDefaultValue[0]] = action.indexDefaultValue[1]
-            //debugger;
             return {...state}
 
 
@@ -793,7 +799,7 @@ export const updateCurrencyPairs = (indexDefaultValue) => ({type: UPDATE_CURRENC
 
 export const handleExchangeRates = () => {
     return (dispatch) => {
-        fetchExchangeRates.fromCurrencyapi().then(data => {
+        fetchExchangeRates.fromCurrencyapiLatest().then(data => {
             dispatch(setExchangeRates(data));
         }).catch(err => {
                 console.log(err)
@@ -801,6 +807,5 @@ export const handleExchangeRates = () => {
         );
     }
 }
-
 
 export default exchange_reducer;

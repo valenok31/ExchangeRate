@@ -1,28 +1,48 @@
-.box{
+.box {
     display: grid;
     place-items: center;
     gap: 15px;
     grid-template-rows: auto;
 }
 
-h1{
+h1 {
 
 }
 
-.box__date{
-text-align: center;
+.box__date {
+    text-align: center;
 }
 
-.box__currency{
+.box__currency {
     display: grid;
-    place-items: center;
+    place-items: center start;
     gap: 15px;
     grid-template-rows: auto;
 }
-.box__add_currency{
+
+.box__add_currency {
 
 }
 
-form{
-display: block;
+.currency_pair__line {
+    display: grid;
+    grid-template-columns: 30px auto;
+
+}
+
+.line__remove{
+    display: grid;
+    place-items: center center;
+    margin-right: 5px;
+}
+
+.button_remove {
+    display: inline-block;
+    background-image: url("../../assistive/remove.png");
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    border: none;
+    place-items: center center;
+
 }

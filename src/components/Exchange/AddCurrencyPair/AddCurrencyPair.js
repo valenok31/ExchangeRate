@@ -1,12 +1,11 @@
 import React from 'react';
 import s from "./AddCurrencyPair.module.css";
+import {setLocalStorage} from "../../accessoryFunctions/setLocalStorage";
 
 
 export function AddCurrencyPair(props) {
-    function addCurrencyPair(e) {
+    async function addCurrencyPair(e) {
         e.preventDefault();
-
-
         const firstTarget = e.target.first.value;
         const secondTarget = e.target.second.value;
 
@@ -22,6 +21,8 @@ export function AddCurrencyPair(props) {
             defaultValueF: firstCurrencyValue,
             defaultValueS: secondCurrencyValue,
         });
+let allCurr = await props.allCurrency;
+        //setLocalStorage(allCurr);
     }
 
     return <form id="form" onSubmit={addCurrencyPair}>
