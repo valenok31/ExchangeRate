@@ -1,0 +1,62 @@
+select {
+    display: inline-block;
+    text-align: right;
+    width: 125px;
+    height: calc(2.25rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+option {
+    text-align: center;
+    padding: 5px;
+}
+
+
+.currency_pair__line {
+    display: grid;
+    grid-template-columns: 30px auto 43px 30px auto 30px;
+
+}
+
+.label_harr {
+    place-items: center center;
+    margin-right: 5px;
+    margin-left: 5px;
+    width: auto;
+    text-align: center;
+    display: grid;
+    margin-bottom: 0.25rem;
+}
+
+.line__remove {
+    display: grid;
+    place-items: center center;
+    margin-right: 5px;
+}
+
+.button_add {
+    display: inline-block;
+    background-image: url("../../../assistive/add.png");
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    border: none;
+    place-items: center center;
+
+}
+
+.line__add {
+    display: grid;
+    place-items: center center;
+    margin-left: 5px;
+}

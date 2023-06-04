@@ -18,7 +18,7 @@ class Exchange extends React.Component {
         // this.props.handleExchangeRates();
 
         let startCurrencyPairs = [];
-
+this.props.removeCurrencyPairs(-1);
         if (localStorage.startCurrencyPairs) {
             startCurrencyPairs = JSON.parse(localStorage.startCurrencyPairs);
         } else {
@@ -62,10 +62,12 @@ class Exchange extends React.Component {
             }
 
             let arrCurrencyPair = arrCurrency.map((currency, i, allCurrency) => {
-                return <form className={s.currency_pair__line}  key={i} onSubmit={(evt) => {
+                return <form className={s.currency_pair__line} key={i} onSubmit={(evt) => {
                     onRemoveCurrencyPairs(i, evt)
                 }}>
-                    <div className={s.line__remove}><button type='submit' className={s.button_remove}></button></div>
+                    <div className={s.line__remove}>
+                        <button type='submit' className={s.button_remove} title='Удалить'></button>
+                    </div>
                     <CurrencyPair keyNumber={i}
                                   currencyPair={currency}
                                   base={base}
@@ -74,7 +76,6 @@ class Exchange extends React.Component {
                                   removeCurrencyPairs={this.props.removeCurrencyPairs}
                                   getSymbol={this.props.getSymbol}
                     />
-                    {/*{i<2 ? <div></div> : <button type='submit'>Delete</button>}*/}
                 </form>
             })
 

@@ -754,7 +754,7 @@ const initialState = {
         'USD':"$",
         'EUR':"€",
         'RUB':"руб.",
-        'BYR':"$",
+        'BYR':"BYR",
     }
 };
 

@@ -5,7 +5,6 @@ display: inline-block;
 input{
     display: inline-block;
     text-align: right;
-
     width: 125px;
     height: calc(2.25rem + 2px);
     padding: 0.375rem 0.75rem;
@@ -33,7 +32,7 @@ label{
 .label_harr{
     margin-right: 5px;
     margin-left: 5px;
-    width: 35px;
+    width: auto;
     display: inline-block;
     margin-bottom: 0.25rem;
 }

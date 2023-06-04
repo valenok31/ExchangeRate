@@ -14,6 +14,7 @@ h1 {
 }
 
 .box__currency {
+    margin-bottom: 30px;
     display: grid;
     place-items: center start;
     gap: 15px;
@@ -22,6 +23,11 @@ h1 {
 
 .box__add_currency {
 
+    display: grid;
+    width: 398px;
+    place-items: center start;
+    gap: 15px;
+    grid-template-rows: auto;
 }
 
 .currency_pair__line {
