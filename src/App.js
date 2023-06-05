@@ -5,20 +5,14 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import Exchange from "./components/Exchange/Exchange";
 import Setting from "./components/Setting/Setting";
-
+import setting from "./assistive/setting.png"
 
 class App extends React.Component {
 
   render() {
     return (<div className={s.app__container}>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/setting">Настройки</Link>
-              </li>
-            </ul>
-          </nav>
-          <div >
+
+          <div>
             <Routes>
               <Route path='/' element={<Exchange/>}/>
               <Route path='/setting' element={<Setting/>}/>

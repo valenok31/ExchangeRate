@@ -1,70 +1,30 @@
-# Getting Started with Create React App
+# Курсы валют и калькулятор
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Проект Курсы валюты. Данные приходят с [currencyapi.com](currencyapi.com).
+Реализовано на ReactJS + Redux
 
-## Available Scripts
+## Основные моменты UI
 
-In the project directory, you can run:
+В данном сервисе реализовано:
+1. SPA
+2. Дефолтные пары. Рубли - Доллары, Рубли - Евро
+3. Возможность добавлять/удалять дополнительные пары валют (около 170 валют)
+4. Встроенный калькулятор с двухсторонним расчетом сумм валют
+5. Информация по отображаемым парам сохраняется в localStorage
+6. Адаптивная верстка
+7. Символы валют и принадлежность к стране
 
-### `npm start`
+## Основные моменты BLL
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+При первом запуске и инициализации приложения идет загрузка актуальных курсов валют и информация по ним (символы, принадлежность к стране). Сразу же отображается дефолтные пары: доллар-рубль и евро-рубль. При изменении состояния происходит запись и в localStorage. При ошибке получении данных через API currencyapi.com грузятся данные за 2 июня 2023, т.к. сервис бесплатно предоставляет всего 300 запросов в месяц:(
+Отображаемые пары валют можно стазу же рассчитывать в двух направлениях (как это реализовано у Яндекса).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. React
+2. redux
+3. react-redux
+4. redux-thunk
+5. react-router-dom
+6. axios
+7. localStorage
+8. Классовые и функциональные компоненты
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

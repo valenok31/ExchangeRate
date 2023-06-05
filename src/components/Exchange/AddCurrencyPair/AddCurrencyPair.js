@@ -1,11 +1,9 @@
 import React from 'react';
 import s from "./AddCurrencyPair.module.css";
-import RUB from "./../../../assistive/RUB.png"
-import EUR from "./../../../assistive/EUR.png"
-import USD from "./../../../assistive/USD.png"
-
 
 export function AddCurrencyPair(props) {
+
+    let getSymbol = props.getSymbol;
 
     function addCurrencyPair(e) {
         e.preventDefault();
@@ -23,35 +21,39 @@ export function AddCurrencyPair(props) {
             defaultValueS: secondCurrencyValue,
         });
     }
-let fl;
-    function addFlag(e) {
-        console.log(e.target.value)
-        let flag2 = {
-            "RUB": "RU",
-            "USD": "US",
-            "EUR": "EU",
-            "BYR": "BY",
-        }
-        fl= <img src={`https://flagsapi.com/${flag2[e.target.value]}/flat/24.png`}/>
+
+    let selectOptionCurrency = [];
+    for (let currency in props.base) {
+        selectOptionCurrency.push(
+            <option value={currency} title={getSymbol[currency]?.name}>
+                {getSymbol[currency]?.symbol_native} - {getSymbol[currency]?.name}
+            </option>
+        );
     }
 
     return <form className={s.currency_pair__line} id="form" onSubmit={addCurrencyPair}>
         <div className={s.line__remove}></div>
-        <select name='first' onChange={(e)=> {
-            addFlag(e)
-        }}>
-            <option selected value="USD">USD</option>
-            <option value="RUB">RUB</option>
-            <option value="EUR">EUR</option>
-            <option value="BYR">BYR</option>
+        <select name='first'>
+            <option selected value={"USD"}
+                    title={getSymbol["USD"]?.name}>{getSymbol["USD"]?.symbol_native} - {getSymbol["USD"]?.name}</option>
+            <option value={"EUR"}
+                    title={getSymbol["EUR"]?.name}>{getSymbol["EUR"]?.symbol_native} - {getSymbol["EUR"]?.name}</option>
+            <option value={"RUB"}
+                    title={getSymbol["RUB"]?.name}>{getSymbol["RUB"]?.symbol_native} - {getSymbol["RUB"]?.name}</option>
+            <option value="---" disabled={true}>---</option>
+            {selectOptionCurrency}
         </select>
         <div className={s.label_harr}>&harr;</div>
-        <div className={s.line__remove}>{/*<img src={RUB}/>*/}</div>
+        <div className={s.line__remove}></div>
         <select name='second'>
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-            <option selected value="RUB">RUB</option>
-            <option value="BYR">BYR</option>
+            <option value={"USD"}
+                    title={getSymbol["USD"]?.name}>{getSymbol["USD"]?.symbol_native} - {getSymbol["USD"]?.name}</option>
+            <option value={"EUR"}
+                    title={getSymbol["EUR"]?.name}>{getSymbol["EUR"]?.symbol_native} - {getSymbol["EUR"]?.name}</option>
+            <option selected value={"RUB"}
+                    title={getSymbol["RUB"]?.name}>{getSymbol["RUB"]?.symbol_native} - {getSymbol["RUB"]?.name}</option>
+            <option value="---" disabled={true}>---</option>
+            {selectOptionCurrency}
         </select>
         <div className={s.line__add}>
             <button className={s.button_add} type="submit" title='Добавить'></button>

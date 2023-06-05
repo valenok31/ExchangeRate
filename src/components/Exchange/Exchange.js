@@ -1,6 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {
+    handleCurrencySymbol,
     handleExchangeRates,
     removeCurrencyPairs,
     setSelectedCurrencyPairs,
@@ -9,16 +10,18 @@ import {
 import {CurrencyPair} from "./CurrencyPair/CurrencyPair";
 import {AddCurrencyPair} from "./AddCurrencyPair/AddCurrencyPair";
 import {dateConverter} from "../accessoryFunctions/dateСonverter";
-import s from "./Exchange.module.css";
 import {setLocalStorage} from "../accessoryFunctions/setLocalStorage";
+import s from "./Exchange.module.css";
 
 
 class Exchange extends React.Component {
     componentDidMount() {
-        // this.props.handleExchangeRates();
+
+//this.props.handleExchangeRates(); // Отключено обновление курсов, используется из сохраненной библиотеки
+//this.props.handleCurrencySymbol(); // Отключено обновление символов, используется из сохраненной библиотеки
 
         let startCurrencyPairs = [];
-this.props.removeCurrencyPairs(-1);
+        this.props.removeCurrencyPairs(-1);
         if (localStorage.startCurrencyPairs) {
             startCurrencyPairs = JSON.parse(localStorage.startCurrencyPairs);
         } else {
@@ -49,9 +52,9 @@ this.props.removeCurrencyPairs(-1);
         }
     }
 
-
     render() {
         if (!!this.props.getExchangeRates.data) {
+
             let base = this.props.getExchangeRates.data;
             let arrCurrency = this.props.getSelectedCurrencyPairs;
             let removeCurrencyPairs = this.props.removeCurrencyPairs;
@@ -61,12 +64,12 @@ this.props.removeCurrencyPairs(-1);
                 removeCurrencyPairs(i);
             }
 
-            let arrCurrencyPair = arrCurrency.map((currency, i, allCurrency) => {
+            let arrCurrencyPair = arrCurrency.map((currency, i) => {
                 return <form className={s.currency_pair__line} key={i} onSubmit={(evt) => {
                     onRemoveCurrencyPairs(i, evt)
                 }}>
                     <div className={s.line__remove}>
-                        <button type='submit' className={s.button_remove} title='Удалить'></button>
+                        <button type='submit' className={s.button_remove} title='Удалить'> </button>
                     </div>
                     <CurrencyPair keyNumber={i}
                                   currencyPair={currency}
@@ -82,13 +85,17 @@ this.props.removeCurrencyPairs(-1);
             let date = new Date(Date.parse(this.props.getExchangeRates.meta.last_updated_at));
 
             return (<div className={s.box}>
+                    {/*                    <nav>
+                        <Link to="/setting"><img src={setting}/></Link>
+                    </nav>*/}
                     <h1>Курс валют</h1>
-                    <div className={s.box__date}>{dateConverter(date, true)}</div>
+                    <div className={s.box__date}><div>данные на </div> {dateConverter(date, false)}</div>
                     <div className={s.box__currency}>{arrCurrencyPair}</div>
                     <div className={s.box__add_currency}><AddCurrencyPair
                         setSelectedCurrencyPairs={this.props.setSelectedCurrencyPairs}
                         allCurrency={this.props.getSelectedCurrencyPairs}
-                        base={base}/></div>
+                        base={base}
+                        getSymbol={this.props.getSymbol}/></div>
                 </div>
             )
         }
@@ -107,7 +114,8 @@ let resultConnecting = connect(mapStateToProps, {
     handleExchangeRates,
     setSelectedCurrencyPairs,
     removeCurrencyPairs,
-    updateCurrencyPairs
+    updateCurrencyPairs,
+    handleCurrencySymbol
 })(Exchange);
 
 export default resultConnecting;

@@ -3,14 +3,27 @@
     place-items: center;
     gap: 15px;
     grid-template-rows: auto;
+    margin-top: 25px;
 }
+
+nav{
+    width: 200px;
+    height:40px;
+}
+nav img{
+    width: 40px;
+    height:40px;
+}
+
 
 h1 {
 
 }
 
-.box__date {
+.box__date > div {
+    display: inline-block;
     text-align: center;
+    font-size: 16px;
 }
 
 .box__currency {
