@@ -17,7 +17,7 @@ import s from "./Exchange.module.css";
 class Exchange extends React.Component {
 
     componentDidMount() {
-        this.props.handleExchangeRates(); // Отключено/включено обновление курсов, используется из сохраненной библиотеки
+    this.props.handleExchangeRates(); // Отключено/включено обновление курсов, используется из сохраненной библиотеки
 //this.props.handleCurrencySymbol(); // Отключено обновление символов, используется из сохраненной библиотеки
 
         let startCurrencyPairs = null;

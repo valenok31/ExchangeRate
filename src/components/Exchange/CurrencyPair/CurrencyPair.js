@@ -34,7 +34,7 @@ export function CurrencyPair(props) {
     return <form>
         <input id="firstCurrency"
                name="firstCurrency"
-               type="text"
+               type="number"
                onChange={onChangeValueFirstCurrency}
                value={props.currencyPair.defaultValueF}
         />
@@ -42,7 +42,7 @@ export function CurrencyPair(props) {
         <div className={s.label_harr}>&harr;</div>
         <input id="secondCurrency"
                name="secondCurrency"
-               type="text"
+               type="number"
                onChange={onChangeValueSecondCurrency}
                value={props.currencyPair.defaultValueS}
         />
