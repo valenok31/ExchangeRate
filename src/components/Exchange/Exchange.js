@@ -15,12 +15,12 @@ import s from "./Exchange.module.css";
 
 
 class Exchange extends React.Component {
-    componentDidMount() {
 
-//this.props.handleExchangeRates(); // Отключено обновление курсов, используется из сохраненной библиотеки
+    componentDidMount() {
+        this.props.handleExchangeRates(); // Отключено/включено обновление курсов, используется из сохраненной библиотеки
 //this.props.handleCurrencySymbol(); // Отключено обновление символов, используется из сохраненной библиотеки
 
-        let startCurrencyPairs = [];
+        let startCurrencyPairs = null;
         this.props.removeCurrencyPairs(-1);
         if (localStorage.startCurrencyPairs) {
             startCurrencyPairs = JSON.parse(localStorage.startCurrencyPairs);
@@ -28,6 +28,7 @@ class Exchange extends React.Component {
             startCurrencyPairs = this.props.getSelectedCurrencyPairs;
         }
 
+        // Загрузка выбранных курсов валют (из localStorage или state)
         for (let i = 0; i < startCurrencyPairs.length; i++) {
             let startPair = startCurrencyPairs[i];
             let firstCurrency = startPair.firstcode;
@@ -69,7 +70,7 @@ class Exchange extends React.Component {
                     onRemoveCurrencyPairs(i, evt)
                 }}>
                     <div className={s.line__remove}>
-                        <button type='submit' className={s.button_remove} title='Удалить'> </button>
+                        <button type='submit' className={s.button_remove} title='Удалить'></button>
                     </div>
                     <CurrencyPair keyNumber={i}
                                   currencyPair={currency}
@@ -89,7 +90,9 @@ class Exchange extends React.Component {
                         <Link to="/setting"><img src={setting}/></Link>
                     </nav>*/}
                     <h1>Курс валют</h1>
-                    <div className={s.box__date}><div>данные на </div> {dateConverter(date, false)}</div>
+                    <div className={s.box__date}>
+                        <div>данные на</div>
+                        {dateConverter(date, false)}</div>
                     <div className={s.box__currency}>{arrCurrencyPair}</div>
                     <div className={s.box__add_currency}><AddCurrencyPair
                         setSelectedCurrencyPairs={this.props.setSelectedCurrencyPairs}
