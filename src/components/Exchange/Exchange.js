@@ -91,8 +91,7 @@ class Exchange extends React.Component {
                     </nav>*/}
                     <h1>Курс валют</h1>
                     <div className={s.box__date}>
-                        <div>данные на</div>
-                        {dateConverter(date, false)}</div>
+                        <div>данные на</div> {dateConverter(date, false)}</div>
                     <div className={s.box__currency}>{arrCurrencyPair}</div>
                     <div className={s.box__add_currency}><AddCurrencyPair
                         setSelectedCurrencyPairs={this.props.setSelectedCurrencyPairs}
