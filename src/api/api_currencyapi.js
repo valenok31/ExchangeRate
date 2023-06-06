@@ -24,7 +24,7 @@ export const fetchExchangeRates = {
         const requestExchangeRates = axios.create({
             baseURL: `https://api.currencyapi.com/v3/`,
         })
-        return requestExchangeRates.get(`currencies?currencies=USD,EUR,RUB,BYR&apikey=3MPxpTIWTi95Y96mZkFwrFWVQLgiVal7seJt85Zp`)
+        return requestExchangeRates.get(`currencies?apikey=3MPxpTIWTi95Y96mZkFwrFWVQLgiVal7seJt85Zp`)
             .then(response => {
                 return response.data;
             })
